@@ -1,4 +1,4 @@
 data_processing
 ===============
 
-Data parser in Python
+Data transformation, parsering, formating etc in various languages.
