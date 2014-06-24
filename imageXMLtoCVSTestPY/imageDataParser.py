@@ -67,7 +67,6 @@ class imageDataParser():
 					commentName = str(nodes['image']['annotations']['comment']['name'])
 					Loacation = str(nodes['image']['location']) 
 
-			#print commentName,': ',Loacation
 			return Loacation
 
 		except IOError:
