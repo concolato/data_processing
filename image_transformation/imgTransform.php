@@ -15,7 +15,8 @@ function makeImgLighter($lines){
 						$lineArray[$j] = 256;
 					}else{
 						//y=mx + b
-						$lineArray[$j] = $lineArray[$j] + 20;
+						$lineArray[$j] = $lineArray[$j] + 20; 
+						//This will lighten the image and -20 will darken it
 					}
 					array_push($dataArray, $lineArray[$j]);
 				}			
@@ -30,23 +31,21 @@ function makeImgLighter($lines){
 
 $oldfile = "sample_images/lena256_PPM.ppm";
 $lines = file($oldfile);
+//Process the image
 $dataArray = makeImgLighter($lines);
-
 $dataString = implode(" ", $dataArray);
 $dataString = "P3\n".$dataString;
-//echo $dataString;
 $newfile = "sample_images/newlightImage.ppm";
 
 if (!$handle = fopen($newfile, 'w')) {
      echo "Cannot open file ($filename)";
      exit;
 }
-
 if (fwrite($handle, $dataString) === FALSE) {
     echo "Cannot write to file ($filename)";
     exit;
 }
-
+//Image has been processed
 echo "Success, wrote data to file ($filename)";
 fclose($handle);
 ?>
