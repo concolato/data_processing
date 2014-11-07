@@ -60,53 +60,5 @@ class display(imageDataParser):
 			img.rotate()
 			print 'CSV image path processed.'
 	#end displayImg
-
-	#Not functional yet - Future Development with web pages
-	def content(self):
-		content = '''
-			<html>
-				<head>
-				  <meta content="text/html; charset=ISO-8859-1"
-				 http-equiv="content-type">
-				  <title>XML, JSON and CSV Parsing Comparison</title>
-				  <link rel="stylesheet" href="css/main.css" />
-				</head>
-				<body style="background:#3d3d3d;">
-					<div id="mainLayout">
-						<h1>XML, JSON and CSV Parsing Comparison</h1>
-						<p>This is an illustration of the speed of parcing an XML, JSON, and CSV data set.</p>
-
-						<div id="barChart"></div>
-					</div>
-					<script type="text/javascript" src="js/d3.v3.js" charset="utf-8"></script>
-					<script src="js/jquery-2.0.3.min.js"></script> 
-					<script src="js/jquery-ui-1.10.4.custom.min.js"></script>
-					<script>
-						var data = ['{self.xmlD}','self.csvD','self.jsonD'];
-					</script>
-				</body>
-			</html>
-		'''
-		self.browseLocal(contents, self.template)
-	#end content
-
-	#Not functional yet - Future Development with web pages
-	def strToFile(self,content, filepath):
-	    """Write a file with the given name and the given text."""
-	    output = open(filepath,"w")
-	    output.write(content)
-	    output.close()
-	#end content
-
-	#Not functional yet - Future Development with web pages
-	def browseLocal(webpageText, filename):
-	    '''Start your webbrowser on a local file containing the text
-	    with given filename.'''
-	    import webbrowser, os.path
-
-	    this_object.strToFile(webpageText, filename)
-	    webbrowser.open("http://localhost/imageXMLtoCVSTest/" + filename)
-	#end content
-	
 #end class display
 display()
