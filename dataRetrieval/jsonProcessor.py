@@ -91,4 +91,29 @@ def dataMean(data, count):
 	return meanValue
 #end dataMean
 
-jsonReporter()
+#remving objects from json string
+def jsonStrip():
+	fileName = 'data/oasp.json'
+	fileName2 = 'data/msaRaw.json'
+
+	try:
+		with open(fileName) as jsonGetData:
+			j = json.load(jsonGetData)
+
+			for dataAdd in j['features']:
+				del dataAdd['properties']['asian_pop']
+				del dataAdd['properties']['hawaiian_pop']
+
+				if(dataAdd['properties']['metro_area'] == "Abilene"):
+					print dataAdd['properties']
+	except Exception, e:
+		raise
+	else:
+		pass
+	finally:
+		pass
+#end jsonStrip
+
+
+#jsonReporter()
+jsonStrip()
