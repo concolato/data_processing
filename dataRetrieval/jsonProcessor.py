@@ -91,7 +91,7 @@ def dataMean(data, count):
 	return meanValue
 #end dataMean
 
-#remving objects from json string
+#removing objects from json string
 def jsonStrip():
 	fileName = 'data/oasp.json'
 	fileName2 = 'data/msaRaw.json'
@@ -178,6 +178,57 @@ def jsonStrip():
 				del dataAdd['properties']['hawaiian_female']
 				del dataAdd['properties']['hawaiian_unemployment']
 				del dataAdd['properties']['hawaiian_poverty']
+				
+				del dataAdd['properties']['hispanic_age_18_24']
+				del dataAdd['properties']['hispanic_lang_prof']
+				del dataAdd['properties']['hispanic_age_25_54']
+				del dataAdd['properties']['hispanic_age_55_over']				
+				del dataAdd['properties']['hispanic_edu_less_than_high']
+				del dataAdd['properties']['hispanic_edu_high_ged']
+				del dataAdd['properties']['hispanic_edu_some_college']
+				del dataAdd['properties']['hispanic_edu_college_higher']
+				del dataAdd['properties']['hispanic_disability']				
+				del dataAdd['properties']['hispanic_male']
+				del dataAdd['properties']['hispanic_female']
+				del dataAdd['properties']['hispanic_unemployment']
+				del dataAdd['properties']['hispanic_poverty']
+				
+				del dataAdd['properties']['black_age_18_24']
+				del dataAdd['properties']['black_lang_prof']
+				del dataAdd['properties']['black_age_25_54']
+				del dataAdd['properties']['black_age_55_over']				
+				del dataAdd['properties']['black_edu_less_than_high']
+				del dataAdd['properties']['black_edu_high_ged']
+				del dataAdd['properties']['black_edu_some_college']
+				del dataAdd['properties']['black_edu_college_higher']
+				del dataAdd['properties']['black_disability']				
+				del dataAdd['properties']['black_male']
+				del dataAdd['properties']['black_female']
+				del dataAdd['properties']['black_unemployment']
+				del dataAdd['properties']['black_poverty']
+
+				del dataAdd['properties']['asian_indian']
+				del dataAdd['properties']['Bangladeshi']
+				del dataAdd['properties']['Bhutanese']
+				del dataAdd['properties']['Burmese']				
+				del dataAdd['properties']['Cambodian']
+				del dataAdd['properties']['Chinese']
+				del dataAdd['properties']['Filipino']
+				del dataAdd['properties']['Hmong']
+				del dataAdd['properties']['Indonesian']				
+				del dataAdd['properties']['Japanese']
+				del dataAdd['properties']['Korean']
+				del dataAdd['properties']['Laotian']
+				del dataAdd['properties']['Malaysian']
+				del dataAdd['properties']['Mongolian']
+				del dataAdd['properties']['Nepalese']
+				del dataAdd['properties']['Okinawan']
+				del dataAdd['properties']['Pakistani']				
+				del dataAdd['properties']['Sri_Lankan']
+				del dataAdd['properties']['Taiwanese']
+				del dataAdd['properties']['Thai']
+				del dataAdd['properties']['Vietnamese']
+				del dataAdd['properties']['Other_Asian']
 
 				if(dataAdd['properties']['metro_area'] == "Abilene"):
 					print dataAdd['properties']
