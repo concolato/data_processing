@@ -101,7 +101,7 @@ def jsonStrip():
 			j = json.load(jsonGetData)
 
 			for dataAdd in j['features']:
-				#del dataAdd['properties']['both_pop']
+				del dataAdd['properties']['aapi_pop']
 				del dataAdd['properties']['both_age_18_24_raw']
 				del dataAdd['properties']['both_lang_prof_raw']
 				del dataAdd['properties']['both_age_25_54_raw']
@@ -229,6 +229,17 @@ def jsonStrip():
 				del dataAdd['properties']['Thai']
 				del dataAdd['properties']['Vietnamese']
 				del dataAdd['properties']['Other_Asian']
+
+				del dataAdd['properties']['comprehensive_count']
+				del dataAdd['properties']['one_stop_count']				
+				del dataAdd['properties']['affiliate_count']
+				del dataAdd['properties']['enforcement_count']
+				del dataAdd['properties']['osha_count']
+				del dataAdd['properties']['ofccp_count']
+				del dataAdd['properties']['job_center_count']
+				del dataAdd['properties']['job_corp_count']
+				del dataAdd['properties']['ebsa_count']
+				del dataAdd['properties']['whd_count']
 
 				if(dataAdd['properties']['metro_area'] == "Abilene"):
 					print dataAdd['properties']
