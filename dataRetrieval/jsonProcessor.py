@@ -91,6 +91,15 @@ def dataMean(data, count):
 	return meanValue
 #end dataMean
 
+#Does not work ... yet
+def fibinacci(start):
+	myList=[]	
+	#multiply by golden ration to get next number
+	myList=[start + i * 1.61803398874989484820458683436563811772030917 for i in range(10)]
+
+	return myList
+#end fibinacci
+
 #removing objects from json string
 def jsonStrip():
 	fileName = 'data/oasp.json'
