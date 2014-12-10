@@ -1,6 +1,6 @@
 #!/usr/bin/python
 print "Open File, Read and Transfer Image Data"
-fileName = 'img/lena256_PGM.pgm'
+fileName = 'img/lena256_PPM.ppm'
 
 try:
    with open(fileName): #verify file is there
