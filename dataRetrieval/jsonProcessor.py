@@ -103,7 +103,7 @@ def fibinacci(start):
 #removing objects from json string
 def jsonStrip():
 	fileName = 'data/oasp.json'
-	fileName2 = 'data/msaRaw.json'
+	fileName2 = 'data/oasp_geo.json'
 
 	try:
 		with open(fileName) as jsonGetData:
@@ -250,8 +250,38 @@ def jsonStrip():
 				del dataAdd['properties']['ebsa_count']
 				del dataAdd['properties']['whd_count']
 
-				if(dataAdd['properties']['metro_area'] == "Abilene"):
-					print dataAdd['properties']
+				#if(dataAdd['properties']['metro_area'] == "Abilene"):
+					#print dataAdd['properties']
+
+			#print j
+			new_data = str(json.dumps(j))
+			filePut = open(fileName2, 'w+')
+			#add data
+			filePut.write(new_data)
+			filePut.close()
+
+			try:
+				with open(fileName2): #verify file is there
+					checkFile = open(fileName2, "r")			
+					contents = checkFile.read()
+
+					valid = is_json(contents) #verify this is json
+
+					#if not contents:
+					if(valid == 0):
+						print "error"
+					else:
+						print fileName2," processed."
+						return 1
+						#print contents
+			except Exception, e:
+				print e," ",fileName2
+				raise
+			else:
+				pass
+			finally:
+				pass
+			#end 
 	except Exception, e:
 		print e
 		raise
@@ -261,6 +291,14 @@ def jsonStrip():
 		pass
 #end jsonStrip
 
+def is_json(myjson):
+	try:
+		json_object = json.loads(myjson)
+	except ValueError, e:
+		return 0
+
+	return 1
+#end is_json
 
 #jsonReporter()
 jsonStrip()
