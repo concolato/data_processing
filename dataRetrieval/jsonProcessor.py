@@ -1,7 +1,9 @@
 #!/usr/bin/python
-import pprint
-import json
-import time
+# -*- coding: utf-8 -*-
+
+import pprint, json, time
+#import _mysql
+#import sys
 
 def jsonReporter(): 
 	print "Open File, Read and Do Sumation of Data"
@@ -250,15 +252,11 @@ def jsonStrip():
 				del dataAdd['properties']['ebsa_count']
 				del dataAdd['properties']['whd_count']
 
-				#if(dataAdd['properties']['metro_area'] == "Abilene"):
-					#print dataAdd['properties']
+				if(dataAdd['properties']['metro_area'] == "Abilene"):
+					print dataAdd['properties']
 
 			#print j
-			new_data = str(json.dumps(j))
-			filePut = open(fileName2, 'w+')
-			#add data
-			filePut.write(new_data)
-			filePut.close()
+			filePutData(dataAdd, fileName2)
 
 			try:
 				with open(fileName2): #verify file is there
@@ -291,6 +289,119 @@ def jsonStrip():
 		pass
 #end jsonStrip
 
+def jsonGeoBuild():
+	source = 'data/oasp_dev.json' #using this version bc it has the dummy data
+	newFileBoth = 'data/threads/Both.json'
+	newFileAsian = 'data/threads/Asian.json'
+	newFilePacific = 'data/threads/Pacific.json'
+	newFileHispanic = 'data/threads/Hispanic.json'
+	newFileBlack = 'data/threads/Black.json'
+
+	jX = returnJson(source)
+	jY = returnJson(newFileBoth)
+
+	for dataL1 in jX['features']:			
+		#print dataL1['properties']['metro_area']
+
+		for dataL2 in jY['features']:
+			if dataL1['properties']['metro_area'] == dataL2['properties']['metro_area']:
+				print dataL1['properties']['both_age_18_24_raw']
+				#jY['features']['properties'].append(dataL1['properties']['both_age_18_24_raw'])
+
+	#print jY
+#end jsonGeoBuild
+
+def returnJson(source):
+	#Grab destination file json
+	try:
+	   with open(source) as jsonFile: # Open and verify file is there
+	   	# load JSON object into memory
+		j = json.load(jsonFile)
+
+		return j
+	except Exception, e:
+		print e
+		raise
+# end returnJson
+
+def jsonFilterByType():
+	fileName = 'data/oshaReginalAndWhdDistrictOffices.json'
+	
+	newFileJobCorps = 'data/threads/JobCorps.json'
+	newFileComp = 'data/threads/Comp.json'
+	newFileAffiliate = 'data/threads/Affiliate.json'
+	newFileOsha = 'data/threads/Osha.json'
+	newFileWHD = 'data/threads/WHD.json'
+	newFileOfccp = 'data/threads/Ofccp.json'
+	newFileEBSA = 'data/threads/EBSA.json'
+
+	newJsonObj_JobCorps = []
+	newJsonObj_Comp = []
+	newJsonObj_Affiliate = []
+	newJsonObj_Osha = []
+	newJsonObj_WHD = []
+	newJsonObj_Ofccp = []
+	newJsonObj_EBSA = []
+
+	try:
+	   with open(fileName) as jsonFile: # Open and verify file is there
+	   	# load JSON object into memory
+		j = json.load(jsonFile)
+
+		for dataL1 in j:			
+			if dataL1['TYPE'] == "Job Corps Center":
+				#print dataL1['Street_Address']
+				newJsonObj_JobCorps.append(dataL1)
+
+			elif dataL1['TYPE'] == "Affiliate Job Center":
+				newJsonObj_Affiliate.append(dataL1)
+
+			elif dataL1['TYPE'] == "Comprehensive Job Center":
+				newJsonObj_Comp.append(dataL1)
+
+			elif dataL1['TYPE'] == "OSHA Area Office":
+				newJsonObj_Osha.append(dataL1)
+
+			elif dataL1['TYPE'] == "OFCCP Area Office" or dataL1['TYPE'] == "OFCCP Regional Office" or dataL1['TYPE'] == 'OFCCP Regional/District Office':
+				newJsonObj_Ofccp.append(dataL1)
+
+			elif dataL1['TYPE'] == "WHD District Office":
+				newJsonObj_WHD.append(dataL1)
+
+			elif dataL1['TYPE'] == "EBSA Regional Office" or dataL1['TYPE'] == 'EBSA Regional/District Office':
+				newJsonObj_EBSA.append(dataL1)
+		
+		#print newJsonObj_JobCorps
+
+		filePutData(newJsonObj_Affiliate, newFileAffiliate)
+		filePutData(newJsonObj_JobCorps, newFileJobCorps)
+		filePutData(newJsonObj_Comp, newFileComp)
+		filePutData(newJsonObj_Osha, newFileOsha)
+		filePutData(newJsonObj_Ofccp, newFileOfccp)
+		filePutData(newJsonObj_WHD, newFileWHD)
+		filePutData(newJsonObj_EBSA, newFileEBSA)
+
+	except Exception, e:
+		print e
+		raise
+#end jsonSortByType
+
+def filePutData(data, filename):
+	if data:
+		new_data = str(json.dumps(data))
+		filePut = open(filename, 'w+')
+		#add data
+		filePut.write(new_data)
+		filePut.close()
+
+		print "Data for ", filename, " processed."
+		return 1
+	else:
+		print "There is no data for ", filename
+		return 0
+
+#end filePutData
+
 def is_json(myjson):
 	try:
 		json_object = json.loads(myjson)
@@ -301,4 +412,6 @@ def is_json(myjson):
 #end is_json
 
 #jsonReporter()
-jsonStrip()
+#jsonStrip()
+#jsonFilterByType()
+jsonGeoBuild()

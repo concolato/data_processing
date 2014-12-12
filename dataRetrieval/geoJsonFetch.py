@@ -5,7 +5,7 @@ import smtplib
 def getUSGS_json():
 	print "Fetch data from URL"
 
-	fileName = 'data/usgsEarthquacks_12Hrs.json'
+	fileName = 'data/usgsEarthquacks_24Hrs.json'
 	url = 'http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson'
 	
 	try:
@@ -37,6 +37,7 @@ def getUSGS_json():
 		except Exception, e:
 			print e
 			emailNotify(e, url)
+
 			raise
 		else:
 			pass
@@ -48,22 +49,27 @@ def getUSGS_json():
 #end getUSGS_json
 
 def emailNotify(errorMsg, url):
-	sender = 'archturiasystems@gmail.com'
-	receivers = ['claude.mercury@gmail.com']
+	if url:
+		sender = 'archturiasystems@gmail.com'
+		receivers = ['claude.mercury@gmail.com']
 
-	message = """From: From Person <from@fromdomain.com>
-	To: To Person <to@todomain.com>
-	Subject: SMTP e-mail test
+		message = """From: From Person <from@fromdomain.com>
+		To: To Person <to@todomain.com>
+		Subject: SMTP e-mail test
 
-	Error: """,errorMsg, """; 
-	getUSGS_json e-mail message. 
-	""", url,""" Not available."""
+		Error: """,errorMsg, """; 
+		getUSGS_json e-mail message. 
+		""", url,""" Not available."""
 
-	try:
-	   smtpObj = smtplib.SMTP('smtp.gmail.com')
-	   smtpObj.sendmail(sender, receivers, message)         
-	   print "Successfully sent email"
-	except Exception, e:
-	   print "Error: unable to send email ",e
+		try:
+		   smtpObj = smtplib.SMTP('smtp.gmail.com')
+		   smtpObj.sendmail(sender, receivers, message)
+
+		   print "Successfully sent email"
+		except Exception, e:
+		   print "Error: unable to send email ",e
+	else:
+		print url, " not set in emailNotify()"
+#end emailNotify
 
 getUSGS_json()
