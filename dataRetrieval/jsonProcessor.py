@@ -105,7 +105,7 @@ def fibinacci(start):
 #removing objects from json string
 def jsonStrip():
 	fileName = 'data/oasp.json'
-	fileName2 = 'data/oasp_geo.json'
+	fileName2 = 'data/threads/Both.json'
 
 	try:
 		with open(fileName) as jsonGetData:
@@ -252,11 +252,11 @@ def jsonStrip():
 				del dataAdd['properties']['ebsa_count']
 				del dataAdd['properties']['whd_count']
 
-				if(dataAdd['properties']['metro_area'] == "Abilene"):
-					print dataAdd['properties']
+				#if(dataAdd['properties']['metro_area'] == "Abilene"):
+					#print dataAdd['properties']
 
-			#print j
-			filePutData(dataAdd, fileName2)
+			print j
+			filePutData(j, fileName2)
 
 			try:
 				with open(fileName2): #verify file is there
@@ -292,23 +292,60 @@ def jsonStrip():
 def jsonGeoBuild():
 	source = 'data/oasp_dev.json' #using this version bc it has the dummy data
 	newFileBoth = 'data/threads/Both.json'
-	newFileAsian = 'data/threads/Asian.json'
-	newFilePacific = 'data/threads/Pacific.json'
-	newFileHispanic = 'data/threads/Hispanic.json'
-	newFileBlack = 'data/threads/Black.json'
+	#newFileAsian = 'data/threads/Asian.json'
+	#newFilePacific = 'data/threads/Pacific.json'
+	#newFileHispanic = 'data/threads/Hispanic.json'
+	#newFileBlack = 'data/threads/Black.json'
 
 	jX = returnJson(source)
 	jY = returnJson(newFileBoth)
 
 	for dataL1 in jX['features']:			
-		#print dataL1['properties']['metro_area']
-
 		for dataL2 in jY['features']:
-			if dataL1['properties']['metro_area'] == dataL2['properties']['metro_area']:
-				print dataL1['properties']['both_age_18_24_raw']
-				#jY['features']['properties'].append(dataL1['properties']['both_age_18_24_raw'])
+			#This acts as a unique identifyer since some MSAs have the same name
+			if dataL1['properties']['metro_area'] == dataL2['properties']['metro_area'] and dataL1['properties']['stusps'] == dataL2['properties']['stusps']:
+				dataL2['properties']['aapi_pop'] = dataL1['properties']['aapi_pop']
+				dataL2['properties']['both_age_18_24_raw'] = dataL1['properties']['both_age_18_24_raw']
+				dataL2['properties']['both_age_18_24'] = dataL1['properties']['both_age_18_24']
+				dataL2['properties']['both_age_25_54_raw'] = dataL1['properties']['both_age_25_54_raw']
+				dataL2['properties']['both_age_25_54'] = dataL1['properties']['both_age_25_54']
+				dataL2['properties']['both_age_55_over_raw'] = dataL1['properties']['both_age_55_over_raw']
+				dataL2['properties']['both_age_55_over'] = dataL1['properties']['both_age_55_over']
+				dataL2['properties']['both_disability_raw'] = dataL1['properties']['both_disability_raw']
+				dataL2['properties']['both_disability'] = dataL1['properties']['both_disability']
+				dataL2['properties']['both_edu_college_higher_raw'] = dataL1['properties']['both_edu_college_higher_raw']
+				dataL2['properties']['both_edu_college_higher'] = dataL1['properties']['both_edu_college_higher']
 
-	#print jY
+				dataL2['properties']['both_edu_high_ged_raw'] = dataL1['properties']['both_edu_high_ged_raw']
+				dataL2['properties']['both_edu_high_ged'] = dataL1['properties']['both_edu_high_ged']
+				dataL2['properties']['both_edu_less_than_high_raw'] = dataL1['properties']['both_edu_less_than_high_raw']
+				dataL2['properties']['both_edu_less_than_high'] = dataL1['properties']['both_edu_less_than_high']
+				dataL2['properties']['both_edu_some_college_raw'] = dataL1['properties']['both_edu_some_college_raw']
+				dataL2['properties']['both_edu_some_college'] = dataL1['properties']['both_edu_some_college']
+				dataL2['properties']['both_female_raw'] = dataL1['properties']['both_female_raw']
+				dataL2['properties']['both_female'] = dataL1['properties']['both_female']
+				dataL2['properties']['both_male_raw'] = dataL1['properties']['both_male_raw']
+				dataL2['properties']['both_male'] = dataL1['properties']['both_male']
+
+				dataL2['properties']['both_lang_prof_raw'] = dataL1['properties']['both_lang_prof_raw']
+				dataL2['properties']['both_lang_prof'] = dataL1['properties']['both_lang_prof']
+				dataL2['properties']['both_poverty'] = dataL1['properties']['both_poverty']
+				dataL2['properties']['both_unemployment'] = dataL1['properties']['both_unemployment']
+
+				#These are the same for every file
+				dataL2['properties']['comprehensive_count'] = dataL1['properties']['comprehensive_count']
+				dataL2['properties']['one_stop_count']	=	dataL1['properties']['one_stop_count']		
+				dataL2['properties']['affiliate_count'] = dataL1['properties']['affiliate_count']
+				dataL2['properties']['enforcement_count'] = dataL1['properties']['enforcement_count']
+				dataL2['properties']['osha_count'] = dataL1['properties']['osha_count']
+				dataL2['properties']['ofccp_count'] = dataL1['properties']['ofccp_count']
+				dataL2['properties']['job_center_count'] = dataL1['properties']['job_center_count']
+				dataL2['properties']['job_corp_count'] = dataL1['properties']['job_corp_count']
+				dataL2['properties']['ebsa_count'] = dataL1['properties']['ebsa_count']
+				dataL2['properties']['whd_count'] = dataL1['properties']['whd_count']
+
+	filePutData(dataL2, newFileBoth)
+	print dataL2
 #end jsonGeoBuild
 
 def returnJson(source):
@@ -411,7 +448,26 @@ def is_json(myjson):
 	return 1
 #end is_json
 
+#An experiment in moving data from one file to another that worked
+def testDataTransform():
+	source = 'data/threads/testFile2.json' 
+	newFile = 'data/threads/testFile1.json'
+
+	jX = returnJson(source)
+	jY = returnJson(newFile)
+
+	for dataL1 in jX:
+		#print dataL1['city']
+		for dataL2 in jY:
+			if dataL1['city'] == dataL2['city']:
+				dataL2['population'] = dataL1['population']
+
+	for test in jY:
+		print test
+# end testDataTransform
+
 #jsonReporter()
 #jsonStrip()
 #jsonFilterByType()
 jsonGeoBuild()
+#testDataTransform()
