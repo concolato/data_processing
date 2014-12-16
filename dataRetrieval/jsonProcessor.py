@@ -300,52 +300,53 @@ def jsonGeoBuild():
 	jX = returnJson(source)
 	jY = returnJson(newFileBoth)
 
-	for dataL1 in jX['features']:			
-		for dataL2 in jY['features']:
+	for dataL1 in jY['features']: #traverse the stripped down file		
+		for dataL2 in jX['features']: # then grab data values according to geography
+			
 			#This acts as a unique identifyer since some MSAs have the same name
 			if dataL1['properties']['metro_area'] == dataL2['properties']['metro_area'] and dataL1['properties']['stusps'] == dataL2['properties']['stusps']:
-				dataL2['properties']['aapi_pop'] = dataL1['properties']['aapi_pop']
-				dataL2['properties']['both_age_18_24_raw'] = dataL1['properties']['both_age_18_24_raw']
-				dataL2['properties']['both_age_18_24'] = dataL1['properties']['both_age_18_24']
-				dataL2['properties']['both_age_25_54_raw'] = dataL1['properties']['both_age_25_54_raw']
-				dataL2['properties']['both_age_25_54'] = dataL1['properties']['both_age_25_54']
-				dataL2['properties']['both_age_55_over_raw'] = dataL1['properties']['both_age_55_over_raw']
-				dataL2['properties']['both_age_55_over'] = dataL1['properties']['both_age_55_over']
-				dataL2['properties']['both_disability_raw'] = dataL1['properties']['both_disability_raw']
-				dataL2['properties']['both_disability'] = dataL1['properties']['both_disability']
-				dataL2['properties']['both_edu_college_higher_raw'] = dataL1['properties']['both_edu_college_higher_raw']
-				dataL2['properties']['both_edu_college_higher'] = dataL1['properties']['both_edu_college_higher']
+				dataL1['properties']['aapi_pop'] = dataL2['properties']['aapi_pop']
+				dataL1['properties']['both_age_18_24_raw'] = dataL2['properties']['both_age_18_24_raw']
+				dataL1['properties']['both_age_18_24'] = dataL2['properties']['both_age_18_24']
+				dataL1['properties']['both_age_25_54_raw'] = dataL2['properties']['both_age_25_54_raw']
+				dataL1['properties']['both_age_25_54'] = dataL2['properties']['both_age_25_54']
+				dataL1['properties']['both_age_55_over_raw'] = dataL2['properties']['both_age_55_over_raw']
+				dataL1['properties']['both_age_55_over'] = dataL2['properties']['both_age_55_over']
+				dataL1['properties']['both_disability_raw'] = dataL2['properties']['both_disability_raw']
+				dataL1['properties']['both_disability'] = dataL2['properties']['both_disability']
+				dataL1['properties']['both_edu_college_higher_raw'] = dataL2['properties']['both_edu_college_higher_raw']
+				dataL1['properties']['both_edu_college_higher'] = dataL2['properties']['both_edu_college_higher']
 
-				dataL2['properties']['both_edu_high_ged_raw'] = dataL1['properties']['both_edu_high_ged_raw']
-				dataL2['properties']['both_edu_high_ged'] = dataL1['properties']['both_edu_high_ged']
-				dataL2['properties']['both_edu_less_than_high_raw'] = dataL1['properties']['both_edu_less_than_high_raw']
-				dataL2['properties']['both_edu_less_than_high'] = dataL1['properties']['both_edu_less_than_high']
-				dataL2['properties']['both_edu_some_college_raw'] = dataL1['properties']['both_edu_some_college_raw']
-				dataL2['properties']['both_edu_some_college'] = dataL1['properties']['both_edu_some_college']
-				dataL2['properties']['both_female_raw'] = dataL1['properties']['both_female_raw']
-				dataL2['properties']['both_female'] = dataL1['properties']['both_female']
-				dataL2['properties']['both_male_raw'] = dataL1['properties']['both_male_raw']
-				dataL2['properties']['both_male'] = dataL1['properties']['both_male']
+				dataL1['properties']['both_edu_high_ged_raw'] = dataL2['properties']['both_edu_high_ged_raw']
+				dataL1['properties']['both_edu_high_ged'] = dataL2['properties']['both_edu_high_ged']
+				dataL1['properties']['both_edu_less_than_high_raw'] = dataL2['properties']['both_edu_less_than_high_raw']
+				dataL1['properties']['both_edu_less_than_high'] = dataL2['properties']['both_edu_less_than_high']
+				dataL1['properties']['both_edu_some_college_raw'] = dataL2['properties']['both_edu_some_college_raw']
+				dataL1['properties']['both_edu_some_college'] = dataL2['properties']['both_edu_some_college']
+				dataL1['properties']['both_female_raw'] = dataL2['properties']['both_female_raw']
+				dataL1['properties']['both_female'] = dataL2['properties']['both_female']
+				dataL1['properties']['both_male_raw'] = dataL2['properties']['both_male_raw']
+				dataL1['properties']['both_male'] = dataL2['properties']['both_male']
 
-				dataL2['properties']['both_lang_prof_raw'] = dataL1['properties']['both_lang_prof_raw']
-				dataL2['properties']['both_lang_prof'] = dataL1['properties']['both_lang_prof']
-				dataL2['properties']['both_poverty'] = dataL1['properties']['both_poverty']
-				dataL2['properties']['both_unemployment'] = dataL1['properties']['both_unemployment']
+				dataL1['properties']['both_lang_prof_raw'] = dataL2['properties']['both_lang_prof_raw']
+				dataL1['properties']['both_lang_prof'] = dataL2['properties']['both_lang_prof']
+				dataL1['properties']['both_poverty'] = dataL2['properties']['both_poverty']
+				dataL1['properties']['both_unemployment'] = dataL2['properties']['both_unemployment']
 
 				#These are the same for every file
-				dataL2['properties']['comprehensive_count'] = dataL1['properties']['comprehensive_count']
-				dataL2['properties']['one_stop_count']	=	dataL1['properties']['one_stop_count']		
-				dataL2['properties']['affiliate_count'] = dataL1['properties']['affiliate_count']
-				dataL2['properties']['enforcement_count'] = dataL1['properties']['enforcement_count']
-				dataL2['properties']['osha_count'] = dataL1['properties']['osha_count']
-				dataL2['properties']['ofccp_count'] = dataL1['properties']['ofccp_count']
-				dataL2['properties']['job_center_count'] = dataL1['properties']['job_center_count']
-				dataL2['properties']['job_corp_count'] = dataL1['properties']['job_corp_count']
-				dataL2['properties']['ebsa_count'] = dataL1['properties']['ebsa_count']
-				dataL2['properties']['whd_count'] = dataL1['properties']['whd_count']
+				dataL1['properties']['comprehensive_count'] = dataL2['properties']['comprehensive_count']
+				dataL1['properties']['one_stop_count']	=	dataL2['properties']['one_stop_count']		
+				dataL1['properties']['affiliate_count'] = dataL2['properties']['affiliate_count']
+				dataL1['properties']['enforcement_count'] = dataL2['properties']['enforcement_count']
+				dataL1['properties']['osha_count'] = dataL2['properties']['osha_count']
+				dataL1['properties']['ofccp_count'] = dataL2['properties']['ofccp_count']
+				dataL1['properties']['job_center_count'] = dataL2['properties']['job_center_count']
+				dataL1['properties']['job_corp_count'] = dataL2['properties']['job_corp_count']
+				dataL1['properties']['ebsa_count'] = dataL2['properties']['ebsa_count']
+				dataL1['properties']['whd_count'] = dataL2['properties']['whd_count']
 
-	filePutData(dataL2, newFileBoth)
-	print dataL2
+	filePutData(jY, newFileBoth)
+	print jY
 #end jsonGeoBuild
 
 def returnJson(source):
