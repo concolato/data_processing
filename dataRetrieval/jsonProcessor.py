@@ -289,6 +289,8 @@ def jsonStrip():
 		pass
 #end jsonStrip
 
+# String demographic
+# Appends data from one JSON file to new data file
 def jsonGeoBuild(demographic):
 	source = 'data/oasp_dev.json' #using this version bc it has the dummy data
 
@@ -466,8 +468,9 @@ def filePutData(data, filename):
 		new_data = str(json.dumps(data))
 		filePut = open(filename, 'w+')
 		#add data
-		filePut.write(new_data)
-		filePut.close()
+		if is_json(new_data) == 1:
+			filePut.write(new_data)
+			filePut.close()
 
 		print "Data for ", filename, " processed."
 		return 1
@@ -480,7 +483,9 @@ def filePutData(data, filename):
 def is_json(myjson):
 	try:
 		json_object = json.loads(myjson)
+		return 1
 	except ValueError, e:
+		print 'No valid JSON.'
 		return 0
 
 	return 1
