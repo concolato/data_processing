@@ -1,0 +1,19 @@
+[
+
+    {
+        "city": "New York",
+        "lat": 20.1234,
+        "long": 32.09876
+    },
+    {
+        "city": "London",
+        "lat": 21.1234,
+        "long": 37.09876
+    },
+    {
+        "city": "New Jersey",
+        "lat": 10.1234,
+        "long": 30.09876
+    }
+
+]
