@@ -1,0 +1,46 @@
+{
+    "cities": [
+        {
+            "name": "New York",
+            "country":"USA",
+            "lon": -73.948753,
+            "lat": 40.712784
+        },
+        {
+            "name": "Miami",
+            "country":"USA",
+            "lon": -73.948753,
+            "lat": 40.712784
+        },
+        {
+            "name": "Chicago",
+            "country":"USA",
+            "lon": -73.948753,
+            "lat": 40.712784
+        },
+        {
+            "name": "Los Angeles",
+            "country":"USA",
+            "lon": -73.948753,
+            "lat": 40.712784
+        },
+        {
+            "name": "Seatle",
+            "country":"USA",
+            "lon": -73.948753,
+            "lat": 40.712784
+        },
+        {
+            "name": "Huston",
+            "country":"USA",
+            "lon": -73.948753,
+            "lat": 40.712784
+        },
+        {
+            "name": "London",
+            "country":"England",
+            "lon": -73.948753,
+            "lat": 40.712784
+        }
+    ]
+}
