@@ -48,6 +48,68 @@ def getUSGS_json():
 		return 0
 #end getUSGS_json
 
+def getGlobalCitiesWeather_jsonTest():
+	print "Fetch data from API"
+
+	fileName = 'data/globalCitiesWeather.json'
+	globalCities = 'data/globalCities.json'
+	cities = returnJson(globalCities)
+
+	for datacities in cities['cities']:
+		#print test,'yo',datacities['lat']
+		url = 'http://api.openweathermap.org/data/2.5/forecast?lat=',datacities['lat'],'&lon=',datacities['lon'],'&units=metric'
+		print url
+
+
+def getGlobalCitiesWeather_json():
+	print "Fetch data from API"
+
+	fileName = 'data/globalCitiesWeather.json'
+	globalCities = 'data/globalCities.json'
+	cities = returnJson(globalCities)
+
+	url = 'http://api.openweathermap.org/data/2.5/forecast?lat=40.712784&lon=-74.0059&units=metric'
+	
+	try:
+	    urllib2.urlopen(url)
+	    filePut = open(fileName, 'w')
+	    data = urllib2.urlopen(url).read()
+
+	except urllib2.HTTPError, e:
+	    print(e.code)
+
+	    emailNotify(e.code, url)
+	    data = 0
+	except urllib2.URLError, e:
+	    print(e.args)
+
+	    emailNotify(e.args, url)
+	    data = 0
+
+	if data != 0: #validate url
+		try:
+			with open(fileName) as jsonGetData:				
+				#add data
+				filePut.write(data)
+				filePut.close()
+
+				j = json.load(jsonGetData)
+				print "Json processed."
+				return 1
+		except Exception, e:
+			print e
+			emailNotify(e, url)
+
+			raise
+		else:
+			pass
+		finally:
+			pass
+	else:
+		print url," Not available."
+		return 0
+#end getUSGS_json
+
 def emailNotify(errorMsg, url):
 	if url:
 		sender = 'archturiasystems@gmail.com'
@@ -72,4 +134,18 @@ def emailNotify(errorMsg, url):
 		print url, " not set in emailNotify()"
 #end emailNotify
 
-getUSGS_json()
+def returnJson(source):
+	#Grab destination file json
+	try:
+	   with open(source) as jsonFile: # Open and verify file is there
+	   	# load JSON object into memory
+		j = json.load(jsonFile)
+
+		return j
+	except Exception, e:
+		print e
+		raise
+# end returnJson
+
+#getUSGS_json()
+getGlobalCitiesWeather_jsonTest()
