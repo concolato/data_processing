@@ -56,8 +56,7 @@ def getGlobalCitiesWeather_jsonTest():
 	cities = returnJson(globalCities)
 
 	for datacities in cities['cities']:
-		#print test,'yo',datacities['lat']
-		url = 'http://api.openweathermap.org/data/2.5/forecast?lat=',datacities['lat'],'&lon=',datacities['lon'],'&units=metric'
+		url = 'http://api.openweathermap.org/data/2.5/forecast?lat='+str(datacities['lat'])+'&lon='+str(datacities['lon'])+'&units=metric'
 		print url
 
 
