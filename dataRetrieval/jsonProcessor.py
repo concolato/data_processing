@@ -1,6 +1,10 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+#To turn on VirtualEnv
+# $ source bin/activate
+# https://virtualenv.pypa.io/en/latest/userguide.html
+
 import pprint, json, time
 #import _mysql
 #import sys
