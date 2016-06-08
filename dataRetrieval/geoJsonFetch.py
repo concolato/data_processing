@@ -66,8 +66,8 @@ def getGlobalCitiesWeather_json():
 	fileName = 'data/globalCitiesWeather.json'
 	globalCities = 'data/globalCities.json'
 	cities = returnJson(globalCities)
-
-	url = 'http://api.openweathermap.org/data/2.5/forecast?lat=40.712784&lon=-74.0059&units=metric'
+	#Sample URL
+	url = 'http://api.openweathermap.org/data/2.5/weather?q=london,uk&appid=getyourown&units=metric'
 	
 	try:
 	    urllib2.urlopen(url)
