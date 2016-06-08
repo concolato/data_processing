@@ -53,11 +53,16 @@ def getGlobalCitiesWeather_jsonTest():
 
 	fileName = 'data/globalCitiesWeather.json'
 	globalCities = 'data/globalCities.json'
-	cities = returnJson(globalCities)
+	geodata = returnJson(globalCities)
+	count = 0
 
-	for datacities in cities['cities']:
-		url = 'http://api.openweathermap.org/data/2.5/forecast?lat='+str(datacities['lat'])+'&lon='+str(datacities['lon'])+'&units=metric'
+	for datacapital_country in geodata:
+		url = 'http://api.openweathermap.org/data/2.5/weather?q='+datacapital_country['capital']+','+datacapital_country['country']+'&appid=getyourown&units=metric'
+		#url = 'http://api.openweathermap.org/data/2.5/forecast?lat='+str(datacities['lat'])+'&lon='+str(datacities['lon'])+'&units=metric'
+		count += 1
 		print url
+
+	print count
 
 
 def getGlobalCitiesWeather_json():
