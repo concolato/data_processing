@@ -49,20 +49,71 @@ def getUSGS_json():
 #end getUSGS_json
 
 def getGlobalCitiesWeather_jsonTest():
-	print "Fetch data from API"
+	print "Fetch data from Openweathermap API"
 
+	baseAPIUrl = "http://api.openweathermap.org"
 	fileName = 'data/globalCitiesWeather.json'
-	globalCities = 'data/globalCities.json'
+	#globalCities = 'data/globalCities.json'
+	globalCities = 'data/testCountries.json'
 	geodata = returnJson(globalCities)
 	count = 0
+	dataCheck = 1
 
-	for datacapital_country in geodata:
-		url = 'http://api.openweathermap.org/data/2.5/weather?q='+datacapital_country['capital']+','+datacapital_country['country']+'&appid=getyourown&units=metric'
-		#url = 'http://api.openweathermap.org/data/2.5/forecast?lat='+str(datacities['lat'])+'&lon='+str(datacities['lon'])+'&units=metric'
-		count += 1
-		print url
+	try:
+	    urllib2.urlopen(baseAPIUrl)
 
-	print count
+	except urllib2.HTTPError, e:
+	    print(e.code)
+
+	    emailNotify(e.code, baseAPIUrl)
+	    dataCheck = 0
+	except urllib2.URLError, e:
+	    print(e.args)
+
+	    emailNotify(e.args, baseAPIUrl)
+	    dataCheck = 0
+
+	if dataCheck != 0: #validate url
+		data = "["
+		for datacapital_country in geodata:
+			url = baseAPIUrl+'/data/2.5/weather?q='+datacapital_country['capital']+','+datacapital_country['country']+'&appid=getyourown&units=metric'
+			data += urllib2.urlopen(url).read()
+			#247
+			if count >= 1:
+				data += ""
+			else:
+				data += ","
+
+			count += 1
+			#print url
+
+		data += "]"
+
+		print data
+		print count
+
+		filePut = open(fileName, 'w')
+
+		try:
+			with open(fileName) as jsonGetCountriesData:				
+				#add data
+				filePut.write(data)
+				filePut.close()
+
+				#j = json.load(jsonGetCountriesData)
+				print "Json processed."
+				return 1
+		except Exception, e:
+			print e
+			emailNotify(e, url)
+
+			raise
+		else:
+			pass
+		finally:
+			pass
+	else:
+		print fileName+' failed to process for '+baseAPIUrl+'.'
 
 
 def getGlobalCitiesWeather_json():
