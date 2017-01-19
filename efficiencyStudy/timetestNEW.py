@@ -45,11 +45,12 @@ def checkTime(samplePoints, logFilename) :
 
     delta = (Xmax-Xmin) / (samplePoints-1) 
     # Testing done on: 
-    # Mac OS X Siera on 1.7 GHz Intel Core i7, and 8GB RAM
-    # Ubuntu 15.04 VM 1.7 GHz Intel Core i7, and 4GB RAM
+    # 1. Mac OS X Siera on 1.7 GHz Intel Core i7, and 8GB RAM
+    # 2. Ubuntu 16.04 VM 1.7 GHz Intel Core i7, and 4GB RAM
+    
     # Improvement: shifting the file writing to outside of the for loop.
-    # By running 10 tests of before and after,
-    # there is an average speed up of about 839.4 mil sec of execution while maintaining existing functionallity. 
+    # By running 10 tests of before and after, there is an average speed up of about 839.4 mil sec of execution while maintaining existing functionallity.
+    # Running 5 tests on Ubuntu, there is an average speed up of about 538.31 mil sec. 
     for point in range (0, samplePoints) :       
         X = Xmin + point*delta
         Y = compute(coefficients, X)
@@ -83,5 +84,13 @@ if __name__ == "__main__" :
     main()
     endTime = time.time() * 1000
     timeUse = endTime - startTime
+    # Mac OS average exe speed for timetest.py = 57535.96 mil sec. Let this be represented as M1
+    # Mac OS average exe speed for timetestNEW.py = 56696.559 mil sec. Let this be represented as M2
+    # M1 - M2 = 839.402 mil sec. Let this be M3.
+    # M3 / M1 = 0.014 or 1.4% improvement.
 
+    # Ubuntu average exe speed for timetest.py = 43755.1 mil sec. Let this be represented as U1 as so on.
+    # Ubuntu average exe speed for timetestNEW.py = 43216.786 mil sec
+    # U1 - U2 = 538.31 mil sec. Let this be U3.
+    # U3 / U1 = 0.012 or 1.2% improvement.
     print('****Time for main function execution is {} msec'.format(timeUse))
