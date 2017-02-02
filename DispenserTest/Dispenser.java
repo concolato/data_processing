@@ -20,23 +20,35 @@ public class Dispenser {
     
     public Teller.Result dispense(double request) {
         int dollars = (int)request;
-        //These remainders seem to only add to the problem.
-        //double remainder1 = request - dollars;
-        int quarters = (int)(request / 0.25);
-        //double remainder2 = remainder1 - quarters * 0.25;
-        int dimes = (int)(request / 0.1);
-        //double remainder3 = request - dimes * 0.1;
-        int nickels = (int)(request / 0.05);
-        //double remainder4 = request - nickels * 0.05;
-        int pennies = (int)(request / 0.01);
+        int quarters = 0,  dimes = 0,  nickels = 0, pennies =0;
+        // Need to grab what is to the right of the decimal point to get the true remainder.
+        double remainder1 = request - Math.floor(request);
+   
+        if(remainder1 > 0){
+	        quarters = (int)(remainder1 / 0.25);        
+	        double remainder2 = remainder1 - quarters * 0.25;
+	        
+	        if(remainder2 > 0){	        
+		        dimes = (int)(remainder2 / 0.1);	        
+		        double remainder3 = remainder2 - dimes * 0.1;
+		        
+		        if(remainder3 > 0){	        
+			        nickels = (int)(remainder3 / 0.05);
+			        //Rounding the computation of the penny to the nearest 1000th of a cent for better accuracy.
+			        double remainder4 = Math.round((remainder3 - nickels * 0.05)*1000);
+			        
+			        if(remainder4 > 0){ 	
+			        	pennies = (int)(remainder4 / 10);
+			        }
+		        }
+	        }
+        }
         
         int coins[] = {dollars, quarters, dimes, nickels, pennies};
         // The math here will always be wrong due to mixing data types upon performing calculations (doubles and integers).
         //double total = coins[1] * 0.25 + coins[2] * 0.1 + coins[3] * 0.05 + coins[4] * 0.01;
-        System.out.println();
         double total = request;
 
         return new Teller.Result(coins, total);
     }
-
 }
